@@ -7,7 +7,6 @@ services:
     region: Singapore # Choose region closest to India for better performance
     numInstances: 1
     healthCheckPath: /health
-    healthCheckTimeout: 30 # Allow more time for VPN health check
     buildCommand: ""
     startCommand: ""
     envVars:
@@ -55,7 +54,6 @@ services:
     buildCommand: pip install poetry && poetry install
     startCommand: ./start.sh
     healthCheckPath: /health
-    healthCheckTimeout: 30 # Allow more time for VPN health check
     envVars:
       - key: SESSION_SECRET
         value: "ytplayer_production_secret_key_2025" # Pre-configured secret
