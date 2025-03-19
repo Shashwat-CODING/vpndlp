@@ -1,0 +1,98 @@
+services:
+  - type: web
+    name: youtube-audio-player
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter # Choose appropriate plan based on your needs
+    region: Singapore # Choose region closest to India for better performance
+    numInstances: 1
+    healthCheckPath: /health
+    healthCheckTimeout: 30 # Allow more time for VPN health check
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: SESSION_SECRET
+        value: "ytplayer_production_secret_key_2025" # Pre-configured secret
+      - key: DATABASE_URL
+        fromDatabase:
+          name: youtube-audio-db
+          property: connectionString
+      # Pre-configured VPN credentials (match vpn-config.ovpn)
+      - key: VPN_USERNAME
+        value: "vpnuser"
+      - key: VPN_PASSWORD
+        value: "vpnpass2025"
+      # Poetry configuration
+      - key: POETRY_VERSION
+        value: "1.6.1"
+      - key: PYTHON_VERSION
+        value: "3.11.4"
+      # Caching settings
+      - key: CACHE_DIR
+        value: "/tmp/youtube_audio_cache"
+      - key: MAX_CACHE_SIZE_MB
+        value: "500"
+      - key: CACHE_EXPIRY_DAYS
+        value: "7" 
+      # Region settings
+      - key: PREFERRED_REGION
+        value: "IN"
+    disk:
+      name: vpn-config
+      mountPath: /etc/openvpn
+      sizeGB: 1
+    preDeployCommand: |
+      # Copy VPN config to the right location
+      mkdir -p /etc/openvpn
+      cp vpn-config.ovpn /etc/openvpn/
+
+  # Alternative deployment method without Docker (Python)
+  - type: web
+    name: youtube-audio-player-python
+    env: python
+    region: Singapore
+    plan: starter
+    buildCommand: pip install poetry && poetry install
+    startCommand: ./start.sh
+    healthCheckPath: /health
+    healthCheckTimeout: 30 # Allow more time for VPN health check
+    envVars:
+      - key: SESSION_SECRET
+        value: "ytplayer_production_secret_key_2025" # Pre-configured secret
+      - key: DATABASE_URL
+        fromDatabase:
+          name: youtube-audio-db
+          property: connectionString
+      # Pre-configured VPN credentials (match vpn-config.ovpn)
+      - key: VPN_USERNAME
+        value: "vpnuser"
+      - key: VPN_PASSWORD
+        value: "vpnpass2025"
+      # Python configuration
+      - key: PYTHON_VERSION
+        value: "3.11.4"
+      - key: POETRY_VERSION
+        value: "1.6.1"
+      # Caching settings
+      - key: CACHE_DIR
+        value: "/tmp/youtube_audio_cache"
+      - key: MAX_CACHE_SIZE_MB
+        value: "500"
+      - key: CACHE_EXPIRY_DAYS
+        value: "7" 
+      # Region settings
+      - key: PREFERRED_REGION
+        value: "IN"
+    disk:
+      name: vpn-config
+      mountPath: /etc/openvpn
+      sizeGB: 1
+    preDeployCommand: |
+      # Copy VPN config to the right location
+      mkdir -p /etc/openvpn
+      cp vpn-config.ovpn /etc/openvpn/
+
+databases:
+  - name: youtube-audio-db
+    plan: starter
+    region: Singapore # Same region as the web service

@@ -1,0 +1,58 @@
+.footer {
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    background: var(--bs-dark);
+    border: 1px solid var(--bs-gray-700);
+}
+
+.custom-player {
+    background: var(--bs-gray-800);
+    border-radius: 4px;
+    padding: 1rem;
+}
+
+.input-group {
+    background: var(--bs-gray-800);
+    border-radius: 4px;
+}
+
+#audioPlayer {
+    background: var(--bs-gray-800);
+    border-radius: 4px;
+}
+
+#progressBar {
+    cursor: pointer;
+    transition: height 0.2s;
+}
+
+#progressBar:hover {
+    height: 8px !important;
+}
+
+.btn-link {
+    text-decoration: none;
+    padding: 0;
+    font-size: 1.5rem;
+}
+
+.form-range {
+    height: 4px;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: var(--bs-primary);
+}
+
+.form-range::-moz-range-thumb {
+    background: var(--bs-primary);
+}

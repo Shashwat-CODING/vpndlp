@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "youtube-audio-player"
+version = "0.1.0"
+description = "A Flask-based YouTube audio player with VPN support"
+authors = ["Replit <info@replit.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^2.3.3"
+flask-sqlalchemy = "^3.1.1"
+gunicorn = "^23.0.0"
+psycopg2-binary = "^2.9.9"
+yt-dlp = "^2023.11.16"
+ffmpeg-python = "^0.2.0"
+python-dotenv = "^1.0.0"
+requests = "^2.31.0"
+email-validator = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Keep the old section for compatibility
+[project]
+name = "youtube-audio-player"
+version = "0.1.0"
+description = "A Flask-based YouTube audio player with VPN support"
+requires-python = ">=3.11"
+dependencies = [
+    "email-validator>=2.1.0",
+    "ffmpeg-python>=0.2.0",
+    "flask>=2.3.3",
+    "flask-sqlalchemy>=3.1.1",
+    "gunicorn>=23.0.0",
+    "psycopg2-binary>=2.9.9",
+    "python-dotenv>=1.0.0",
+    "requests>=2.31.0",
+    "yt-dlp>=2023.11.16",
+]

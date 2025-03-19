@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Enter YouTube URL</h5>
+                <form id="playForm" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="youtubeUrl" 
+                               placeholder="https://www.youtube.com/watch?v=..." required>
+                        <button class="btn btn-primary" type="submit">Play</button>
+                    </div>
+                </form>
+
+                <div id="playerContainer" class="d-none">
+                    <h6 id="videoTitle" class="mb-3 text-center"></h6>
+                    <div class="text-center mb-3">
+                        <div class="spinner-border text-primary d-none" id="loadingSpinner" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div id="customPlayer" class="custom-player">
+                        <div class="progress" style="height: 5px; cursor: pointer;" id="progressBar">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <div class="d-flex align-items-center mt-2">
+                            <button class="btn btn-link text-primary" id="playPauseBtn">
+                                <i class="bi bi-play-fill"></i>
+                            </button>
+                            <span id="currentTime" class="mx-2">0:00</span>
+                            <span class="mx-1">/</span>
+                            <span id="duration" class="mx-2">0:00</span>
+                            <div class="flex-grow-1">
+                                <input type="range" class="form-range" id="volumeSlider" min="0" max="100" value="100">
+                            </div>
+                            <button class="btn btn-link text-primary" id="muteBtn">
+                                <i class="bi bi-volume-up-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorContainer" class="alert alert-danger d-none" role="alert"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/player.js') }}"></script>
+{% endblock %}
